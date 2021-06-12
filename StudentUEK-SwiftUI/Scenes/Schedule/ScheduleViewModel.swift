@@ -11,6 +11,7 @@ import SwiftUI
 final class ScheduleViewModel: ObservableObject {
     @Published var sections: [ScheduleSection] = []
     @Published var filterButtonTitle: String = "Filtry"
+    @Published var showFilters: Bool = false
     @Published var query: String = "" {
         didSet { filter() }
     }

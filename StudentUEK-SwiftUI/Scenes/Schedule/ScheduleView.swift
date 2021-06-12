@@ -11,7 +11,6 @@ import Combine
 struct ScheduleView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ScheduleViewModel
-    @Binding var showFilters: Bool
     
     var gradientColors: [UIColor] {
         return [
@@ -46,7 +45,7 @@ struct ScheduleView: View {
                     leading:
                         Button(viewModel.filterButtonTitle) {
                             withAnimation {
-                                showFilters.toggle()
+                                viewModel.showFilters.toggle()
                             }
                         },
                     trailing: NavigationLink(destination: Text("Destination")) {

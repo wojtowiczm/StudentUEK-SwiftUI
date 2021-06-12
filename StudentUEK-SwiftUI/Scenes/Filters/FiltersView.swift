@@ -15,24 +15,17 @@ struct FiltersView: View {
     
     var header: some View {
         HStack(alignment: .top) {
-            Button(action: {
+            Button("Wyczyść") {
                 withAnimation {
                     showFilters.toggle()
                     filters = Set(SubjectType.allCases)
                 }
-            }) {
-                Text("Wyczyść")
-                    .bold()
             }
             Spacer()
                 RoundedRectangle(cornerRadius: 1).fill(Color.gray)
                     .frame(width: 30, height: 3)
             Spacer()
-            Button(action: {
-                withAnimation {
-                    showFilters.toggle()
-                }
-            }) {
+            Button(action: { withAnimation { showFilters.toggle() }}) {
                 Text("Gotowe")
                     .bold()
             }
@@ -96,7 +89,7 @@ struct FiltersView: View {
     }
     
     func isSelected(type: SubjectType) -> Bool {
-        filters.contains(type)
+        !filters.contains(type)
     }
 
     func toggle(type: SubjectType) {

@@ -9,22 +9,26 @@ import SwiftUI
 import UIKit
 
 struct BottomTabView: View {
-    @State var showScheduleFilters = false
     @StateObject var scheduleViewModel = ScheduleViewModel(scheduleLoader: ScheduleStoreMock(), grouper: ScheduleGrouper())
+    @StateObject var settingsViewModel = SettingsViewModel()
     
     var body: some View {
         ZStack {
             TabView {
-                ScheduleView(viewModel: scheduleViewModel, showFilters: $showScheduleFilters)
+                ScheduleView(viewModel: scheduleViewModel)
                     .tabItem {
                         Label("mainScheduleTabBarTitle", systemImage: "star.fill")
                     }
+        
+                SettingsView(viewModel: settingsViewModel)
+                    .tabItem {
+                        Label("settingsTabBarTitle", systemImage: "gear")
+                    }
             }
-            .accentColor(.pink)
-            VStack {
-                Spacer()
-                if showScheduleFilters {
-                    FiltersView(showFilters: $showScheduleFilters, filters: $scheduleViewModel.subjectTypes)
+            if scheduleViewModel.showFilters {
+                VStack {
+                    Spacer()
+                    FiltersView(showFilters: $scheduleViewModel.showFilters, filters: $scheduleViewModel.subjectTypes)
                         .transition(.move(edge: .bottom))
                 }
             }
