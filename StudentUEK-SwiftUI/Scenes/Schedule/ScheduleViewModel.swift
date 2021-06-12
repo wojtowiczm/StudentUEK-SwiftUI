@@ -6,10 +6,21 @@
 //
 
 import Combine
+import SwiftUI
 
 final class ScheduleViewModel: ObservableObject {
     @Published var sections: [ScheduleSection] = []
-    @Published var query: String = ""
+    @Published var filterButtonTitle: String = "Filtry"
+    @Published var query: String = "" {
+        didSet { filter() }
+    }
+    
+    @Published var subjectTypes: Set<SubjectType> = Set(SubjectType.allCases) {
+        didSet {
+            filter()
+            updateFiltersCount()
+        }
+    }
     
     private let scheduleLoader: ScheduleLocalStore
     private let grouper: ScheduleSectionGroupingLogic
@@ -25,17 +36,29 @@ final class ScheduleViewModel: ObservableObject {
     func loadData() {
         scheduleLoader.fetchStoredSchedule()
             .map(grouper.groupedSections)
-            .assign(to: \.sections, on: self)
+            .sink { [weak self] in
+                self?.fullSchedule = $0
+                self?.sections = $0
+            }
             .store(in: &cancellableBag)
-        }
+    }
     
     func filter() {
-        sections = fullSchedule.compactMap {
-            var new = $0
-            if !query.isEmpty {
-                new.subjects = $0.subjects.filter { $0.contains(searchText: query.lowercased()) }
+        withAnimation {
+            sections = fullSchedule.compactMap {
+                var new = $0
+                if !query.isEmpty {
+                    new.subjects = $0.subjects.filter {
+                        $0.contains(searchText: query.lowercased()) && subjectTypes.contains($0.type!)
+                    }
+                }
+                return new.subjects.isEmpty ? nil : new
             }
-            return new.subjects.isEmpty ? nil : new
         }
+    }
+    
+    private func updateFiltersCount() {
+        let filtersCount = SubjectType.allCases.count - subjectTypes.count
+        filterButtonTitle = filtersCount != 0 ? "Filtry (\(filtersCount))" : "Filtry"
     }
 }

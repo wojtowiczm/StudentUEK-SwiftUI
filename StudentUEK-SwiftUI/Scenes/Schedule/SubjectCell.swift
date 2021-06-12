@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SubjectCell: View {
     @Environment(\.colorScheme) var colorScheme
+    @State var detailsPresented = false
     let subject: Subject
     
     var body: some View {
@@ -33,7 +34,7 @@ struct SubjectCell: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(subject.type ?? "")
+                        Text(subject.type?.localized ?? "")
                         Text(subject.teacher ?? "")
                     }
                     Spacer()
@@ -56,7 +57,15 @@ struct SubjectCell: View {
             .accentColor(colorScheme == .dark ? .white : .black)
             .padding()
         }
+        .onTapGesture {
+            withAnimation {
+                detailsPresented = true
+            }
+        }
         .padding(.horizontal)
+        .sheet(isPresented: $detailsPresented) {
+            SubjectDetailsView(subject: subject)
+        }
     }
     
     func openOnlineLesson(_ url: URL) {

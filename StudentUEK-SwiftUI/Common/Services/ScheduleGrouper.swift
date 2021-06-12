@@ -14,12 +14,12 @@ protocol ScheduleSectionGroupingLogic {
 final class ScheduleGrouper: ScheduleSectionGroupingLogic {
     
     func groupedSections(from schedule: [Subject]) -> [ScheduleSection] {
-        let grouped = Dictionary(grouping: schedule) { $0.dateString! }
+        let grouped = Dictionary(grouping: schedule) { $0.dateString! }.filter { !$0.value.isEmpty }
         let sections = grouped.map { (startTime, subjects) -> ScheduleSection in
             let sortedSubject = subjects.sorted { $0.startTime! < $1.startTime! }
-            return ScheduleSection(title: startTime, subjects: sortedSubject)
+            let title = "\(startTime) \(sortedSubject.first!.dayName ?? "")"
+            return ScheduleSection(title: title, subjects: sortedSubject)
         }
-        .filter { !$0.subjects.isEmpty }
         
         let result = sections.sorted { $0.subjects.first!.startTime! < $1.subjects.first!.startTime! }
         return result

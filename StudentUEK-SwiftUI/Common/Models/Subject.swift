@@ -7,6 +7,25 @@
 
 import Foundation
 
+enum SubjectType: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    
+    case discourse
+    case excercise
+    case lecture
+    
+    var localized: String {
+        switch self {
+        case .lecture:
+            return "lectureFilter".localized
+        case .discourse:
+            return "discourseFilter".localized
+        case .excercise:
+            return "exercisesFilter".localized
+        }
+    }
+}
+
 struct Subject: Identifiable {
     var id = UUID()
     
@@ -23,7 +42,7 @@ struct Subject: Identifiable {
     var name: String?
     var teacher: String?
     var place: String?
-    var type: String?
+    var type: SubjectType?
     var note: String?
     var moodleLink: String?
     var sourceType: String?
@@ -46,7 +65,7 @@ struct Subject: Identifiable {
     }
     
     func contains(searchText: String) -> Bool {
-        return ![name, type, teacher, dayName]
+        return ![name, type?.localized, teacher, dayName]
             .compactMap { $0?.lowercased() }
             .filter { $0.contains(searchText) }
             .isEmpty

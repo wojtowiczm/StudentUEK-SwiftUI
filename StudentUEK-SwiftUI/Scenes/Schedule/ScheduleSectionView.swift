@@ -26,9 +26,7 @@ struct ScheduleSectionView: View {
             .padding(.vertical, 4)
             if isExpanded {
                 ForEach(section.subjects) { subject in
-                    NavigationLink(destination: EmptyView()) { // TODO
-                        SubjectCell(subject: subject)
-                    }
+                    SubjectCell(subject: subject)
                 }
             }
         }

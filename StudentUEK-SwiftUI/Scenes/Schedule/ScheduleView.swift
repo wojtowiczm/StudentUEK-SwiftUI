@@ -11,6 +11,7 @@ import Combine
 struct ScheduleView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ScheduleViewModel
+    @Binding var showFilters: Bool
     
     var gradientColors: [UIColor] {
         return [
@@ -23,22 +24,35 @@ struct ScheduleView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                LinearGradient(gradient: Gradient(colors: gradientColors.map(Color.init)), startPoint: .topLeading, endPoint: .bottomTrailing)
-                    .ignoresSafeArea()
-                    .blur(radius: 40)
-                ScrollView {
-                    LazyVStack {
-                        SearchBar(searchText: $viewModel.query)
-                        ForEach(viewModel.sections) { section in
-                            ScheduleSectionView(section: section)
+        ZStack {
+            NavigationView {
+                ZStack {
+                    LinearGradient(gradient: Gradient(colors: gradientColors.map(Color.init)), startPoint: .topLeading, endPoint: .bottomTrailing)
+                        .ignoresSafeArea()
+                        .blur(radius: 40)
+                    ScrollView {
+                        LazyVStack {
+                            SearchBar(searchText: $viewModel.query)
+                            ForEach(viewModel.sections) { section in
+                                ScheduleSectionView(section: section)
+                            }
                         }
+                        .navigationBarTitle("mainScheduleTitle")
+                        .onAppear(perform: viewModel.loadData)
                     }
-                    .navigationBarTitle("mainScheduleTitle")
-                    .onAppear(perform: viewModel.loadData)
+                    SafeAreaBlurView()
                 }
-                SafeAreaBlurView()
+                .navigationBarItems(
+                    leading:
+                        Button(viewModel.filterButtonTitle) {
+                            withAnimation {
+                                showFilters.toggle()
+                            }
+                        },
+                    trailing: NavigationLink(destination: Text("Destination")) {
+                        Image(systemName: "plus")
+                    }
+                )
             }
         }
     }
