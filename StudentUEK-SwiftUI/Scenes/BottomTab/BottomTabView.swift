@@ -19,19 +19,16 @@ struct BottomTabView: View {
                     .tabItem {
                         Label("mainScheduleTabBarTitle", systemImage: "star.fill")
                     }
-        
                 SettingsView(viewModel: settingsViewModel)
                     .tabItem {
-                        Label("settingsTabBarTitle", systemImage: "gear")
+                        Label("settingsTabBarTitle", systemImage: "gearshape.fill")
                     }
             }
-            if scheduleViewModel.showFilters {
-                VStack {
-                    Spacer()
-                    FiltersView(showFilters: $scheduleViewModel.showFilters, filters: $scheduleViewModel.subjectTypes)
-                        .transition(.move(edge: .bottom))
-                }
+            VStack {
+                Spacer()
+                FiltersView(showFilters: $scheduleViewModel.showFilters, filters: $scheduleViewModel.subjectTypes)
             }
+            .offset(y: scheduleViewModel.showFilters ? 0 : 400)
         }
         .ignoresSafeArea()
         .accentColor(.pink)

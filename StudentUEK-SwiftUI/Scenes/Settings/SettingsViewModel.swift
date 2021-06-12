@@ -10,7 +10,9 @@ import Combine
 final class SettingsViewModel: ObservableObject {
     @Published var nightModeEnabled: Bool = false
     @Published var notificationsEnabled: Bool = false
-    @Published var notificationsInterval: Double = 0
+    @Published var notificationsInterval: Double = 0 {
+        didSet { updateLocalNotifications() }
+    }
     @Published var actionSheet: ActionSheetModel?
     @Published var showReconfigurationProcess = false
     @Published var showReconfigurationProcessForTeachers = false
@@ -25,5 +27,9 @@ final class SettingsViewModel: ObservableObject {
     
     func reconfigureAsTeacher() {
         showReconfigurationProcessForTeachers = true
+    }
+    
+    func updateLocalNotifications() {
+        // TODO
     }
 }

@@ -50,7 +50,7 @@ struct FiltersView: View {
     }
     
     var footer: some View {
-        Text("Zaznaczenie spowoduje odfiltrowanie")
+        Text("Odznaczenie spowoduje odfiltrowanie")
             .font(.footnote)
             .fontWeight(.light)
     }
@@ -79,10 +79,11 @@ struct FiltersView: View {
                     }
                 }
                 .onEnded { _ in
-                    if dragOffset > 100 {
-                        withAnimation { showFilters = false }
-                    } else {
-                        withAnimation { dragOffset = .zero }
+                    withAnimation {
+                        if dragOffset > 100 {
+                            showFilters = false
+                        }
+                        dragOffset = .zero
                     }
                 }
         )

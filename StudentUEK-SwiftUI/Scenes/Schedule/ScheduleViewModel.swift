@@ -13,7 +13,10 @@ final class ScheduleViewModel: ObservableObject {
     @Published var filterButtonTitle: String = "Filtry"
     @Published var showFilters: Bool = false
     @Published var query: String = "" {
-        didSet { filter() }
+        didSet {
+            withAnimation { showFilters = false }
+            filter()
+        }
     }
     
     @Published var subjectTypes: Set<SubjectType> = Set(SubjectType.allCases) {

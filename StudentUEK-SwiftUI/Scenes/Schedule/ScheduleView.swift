@@ -14,45 +14,41 @@ struct ScheduleView: View {
     
     var gradientColors: [UIColor] {
         return [
-            UIColor.white.withAlphaComponent(0.7),
-            UIColor.systemPurple.withAlphaComponent(0.3),
-            UIColor.systemPink.withAlphaComponent(colorScheme == .dark ? 0.5 : 0.3),
-            UIColor.systemPurple.withAlphaComponent(colorScheme == .dark ? 0.5 : 0.3),
+            UIColor.white.withAlphaComponent(0.5),
+            UIColor.systemPurple.withAlphaComponent(colorScheme == .dark ? 0.5 : 0.2),
             UIColor.systemTeal
         ]
     }
     
     var body: some View {
-        ZStack {
-            NavigationView {
-                ZStack {
-                    LinearGradient(gradient: Gradient(colors: gradientColors.map(Color.init)), startPoint: .topLeading, endPoint: .bottomTrailing)
-                        .ignoresSafeArea()
-                        .blur(radius: 40)
-                    ScrollView {
-                        LazyVStack {
-                            SearchBar(searchText: $viewModel.query)
-                            ForEach(viewModel.sections) { section in
-                                ScheduleSectionView(section: section)
-                            }
+        NavigationView {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: gradientColors.map(Color.init)), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .ignoresSafeArea()
+                    .blur(radius: 40)
+                ScrollView {
+                    LazyVStack {
+                        SearchBar(searchText: $viewModel.query)
+                        ForEach(viewModel.sections) { section in
+                            ScheduleSectionView(section: section)
                         }
-                        .navigationBarTitle("mainScheduleTitle")
-                        .onAppear(perform: viewModel.loadData)
                     }
-                    SafeAreaBlurView()
+                    .navigationBarTitle("mainScheduleTitle")
+                    .onAppear(perform: viewModel.loadData)
                 }
-                .navigationBarItems(
-                    leading:
-                        Button(viewModel.filterButtonTitle) {
-                            withAnimation {
-                                viewModel.showFilters.toggle()
-                            }
-                        },
-                    trailing: NavigationLink(destination: Text("Destination")) {
-                        Image(systemName: "plus")
-                    }
-                )
+                SafeAreaBlurView()
             }
+            .navigationBarItems(
+                leading:
+                    Button(viewModel.filterButtonTitle) {
+                        withAnimation {
+                            viewModel.showFilters.toggle()
+                        }
+                    },
+                trailing: NavigationLink(destination: Text("Destination")) {
+                    Image(systemName: "plus")
+                }
+            )
         }
     }
 }
