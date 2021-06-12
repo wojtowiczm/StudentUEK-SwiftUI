@@ -24,6 +24,8 @@
 		870DF2512673E2D7000D57AA /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DF2502673E2D7000D57AA /* ScheduleViewModel.swift */; };
 		870DF2572673E33F000D57AA /* ScheduleLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DF2562673E33F000D57AA /* ScheduleLocalStore.swift */; };
 		870DF25C2673E3B2000D57AA /* ScheduleGrouper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DF25B2673E3B2000D57AA /* ScheduleGrouper.swift */; };
+		87DEF4C8267484C6002CED8F /* BottomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4C7267484C6002CED8F /* BottomTabView.swift */; };
+		87DEF4D52674ED71002CED8F /* SafeAreaBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4D42674ED71002CED8F /* SafeAreaBlurView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		870DF2502673E2D7000D57AA /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
 		870DF2562673E33F000D57AA /* ScheduleLocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleLocalStore.swift; sourceTree = "<group>"; };
 		870DF25B2673E3B2000D57AA /* ScheduleGrouper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGrouper.swift; sourceTree = "<group>"; };
+		87DEF4C7267484C6002CED8F /* BottomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabView.swift; sourceTree = "<group>"; };
+		87DEF4D42674ED71002CED8F /* SafeAreaBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaBlurView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 		870DF2162673D4CD000D57AA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				870DF2292673DD51000D57AA /* ScheduleSection.swift */,
 				870DF2172673D4DB000D57AA /* Subject.swift */,
 			);
 			path = Models;
@@ -177,6 +182,7 @@
 		870DF21F2673D51F000D57AA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				87DEF4C626748498002CED8F /* BottomTab */,
 				870DF2202673D524000D57AA /* Schedule */,
 			);
 			path = Scenes;
@@ -186,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				870DF2212673D533000D57AA /* ScheduleView.swift */,
-				870DF2292673DD51000D57AA /* ScheduleSection.swift */,
 				870DF22E2673DD79000D57AA /* ScheduleSectionView.swift */,
 				870DF2332673DDA5000D57AA /* SubjectCell.swift */,
 				870DF2502673E2D7000D57AA /* ScheduleViewModel.swift */,
@@ -206,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				870DF24B2673DFE8000D57AA /* SearchBar.swift */,
+				87DEF4D42674ED71002CED8F /* SafeAreaBlurView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +223,14 @@
 				870DF25B2673E3B2000D57AA /* ScheduleGrouper.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		87DEF4C626748498002CED8F /* BottomTab */ = {
+			isa = PBXGroup;
+			children = (
+				87DEF4C7267484C6002CED8F /* BottomTabView.swift */,
+			);
+			path = BottomTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,10 +365,12 @@
 				870DF2572673E33F000D57AA /* ScheduleLocalStore.swift in Sources */,
 				870DF1EA2673D447000D57AA /* ContentView.swift in Sources */,
 				870DF22F2673DD79000D57AA /* ScheduleSectionView.swift in Sources */,
+				87DEF4C8267484C6002CED8F /* BottomTabView.swift in Sources */,
 				870DF2432673DE82000D57AA /* Date+FormatExtensions.swift in Sources */,
 				870DF2222673D533000D57AA /* ScheduleView.swift in Sources */,
 				870DF25C2673E3B2000D57AA /* ScheduleGrouper.swift in Sources */,
 				870DF23A2673DDD0000D57AA /* Mocks.swift in Sources */,
+				87DEF4D52674ED71002CED8F /* SafeAreaBlurView.swift in Sources */,
 				870DF2342673DDA5000D57AA /* SubjectCell.swift in Sources */,
 				870DF2512673E2D7000D57AA /* ScheduleViewModel.swift in Sources */,
 				870DF2182673D4DB000D57AA /* Subject.swift in Sources */,

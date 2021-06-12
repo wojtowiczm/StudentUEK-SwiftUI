@@ -8,5 +8,5 @@
 import Foundation
 
 enum Mocks {
-    static let subject = Subject(dateString: "2021-01-02", dayName: "", startTime: .init(), startTimeString: .init(), endTime: .init(), endTimeString: .init(), name: .init(), teacher: .init(), place: .init(), type: .init(), note: .init(), moodleLink: .init(), sourceType: .init(), userNote: .init())
+    static let subject = Subject(dateString: "2021-01-02", dayName: "", startTime: Date(), startTimeString: "12:30", endTime: Date(), endTimeString: "14:30", name: "Matematyka", teacher: "Wiliusz", place: "Paw A", type: "Ćwiczenia", note: "blah blah blah blah", moodleLink: .init(), sourceType: .init(), userNote: .init())
 }

@@ -28,7 +28,6 @@ struct ScheduleView: View {
                 LinearGradient(gradient: Gradient(colors: gradientColors.map(Color.init)), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .ignoresSafeArea()
                     .blur(radius: 40)
-                
                 ScrollView {
                     LazyVStack {
                         SearchBar(searchText: $viewModel.query)
@@ -39,11 +38,11 @@ struct ScheduleView: View {
                     .navigationBarTitle("mainScheduleTitle")
                     .onAppear(perform: viewModel.loadData)
                 }
+                SafeAreaBlurView()
             }
         }
     }
 }
-
 
 extension UINavigationController {
     // Remove back button text
@@ -51,4 +50,3 @@ extension UINavigationController {
         navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }
-
