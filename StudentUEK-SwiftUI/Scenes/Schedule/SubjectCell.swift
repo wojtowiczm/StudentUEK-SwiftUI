@@ -16,7 +16,7 @@ struct SubjectCell: View {
         ZStack {
             Color.white
                 .cornerRadius(10)
-                .opacity(0.2)
+                .opacity(0.3)
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Text(subject.name ?? "")

@@ -9,46 +9,33 @@ import SwiftUI
 import Combine
 
 struct ScheduleView: View {
-    @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ScheduleViewModel
-    
-    var gradientColors: [UIColor] {
-        return [
-            UIColor.white.withAlphaComponent(0.5),
-            UIColor.systemPurple.withAlphaComponent(colorScheme == .dark ? 0.5 : 0.2),
-            UIColor.systemTeal
-        ]
-    }
-    
+
     var body: some View {
         NavigationView {
-            ZStack {
-                LinearGradient(gradient: Gradient(colors: gradientColors.map(Color.init)), startPoint: .topLeading, endPoint: .bottomTrailing)
-                    .ignoresSafeArea()
-                    .blur(radius: 40)
-                ScrollView {
-                    LazyVStack {
-                        SearchBar(searchText: $viewModel.query)
-                        ForEach(viewModel.sections) { section in
-                            ScheduleSectionView(section: section)
-                        }
+            ScrollView {
+                LazyVStack {
+                    SearchBar(searchText: $viewModel.query)
+                    ForEach(viewModel.visibleSections) { section in
+                        ScheduleSectionView(section: section)
                     }
-                    .navigationBarTitle("mainScheduleTitle")
-                    .onAppear(perform: viewModel.loadData)
                 }
-                SafeAreaBlurView()
+                .navigationBarTitle("mainScheduleTitle")
+                .onAppear(perform: viewModel.loadData)
             }
+            .modifier(GradientBackgroundModifier())
             .navigationBarItems(
                 leading:
                     Button(viewModel.filterButtonTitle) {
-                        withAnimation {
-                            viewModel.showFilters.toggle()
-                        }
+                        withAnimation { viewModel.showFilters.toggle() }
                     },
-                trailing: NavigationLink(destination: Text("Destination")) {
+                trailing: Button(action: { withAnimation { viewModel.showAddSubject = true } }) {
                     Image(systemName: "plus")
                 }
             )
+            .sheet(isPresented: $viewModel.showAddSubject) {
+                Text("destination")
+            }
         }
     }
 }
@@ -59,3 +46,4 @@ extension UINavigationController {
         navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }
+

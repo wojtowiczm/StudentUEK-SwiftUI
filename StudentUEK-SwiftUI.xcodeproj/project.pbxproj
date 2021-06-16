@@ -32,6 +32,12 @@
 		87DEF4F826752A70002CED8F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4F726752A70002CED8F /* SettingsView.swift */; };
 		87DEF50026752AB2002CED8F /* ActionSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4FF26752AB2002CED8F /* ActionSheetModel.swift */; };
 		87DEF50526752AEF002CED8F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF50426752AEF002CED8F /* SettingsViewModel.swift */; };
+		87F47C1A267A810F00F152FA /* SearchGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F47C19267A810F00F152FA /* SearchGroupView.swift */; };
+		87F47C25267A817F00F152FA /* SearchGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F47C24267A817F00F152FA /* SearchGroupViewModel.swift */; };
+		87F47C2B267AA7DF00F152FA /* GradientBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F47C2A267AA7DF00F152FA /* GradientBackgroundModifier.swift */; };
+		87F47C33267AAB6200F152FA /* SubjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F47C32267AAB6200F152FA /* SubjectType.swift */; };
+		87F47C40267AAD8A00F152FA /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F47C3F267AAD8A00F152FA /* GroupCell.swift */; };
+		87F47C45267AADA400F152FA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F47C44267AADA400F152FA /* Group.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +89,12 @@
 		87DEF4F726752A70002CED8F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		87DEF4FF26752AB2002CED8F /* ActionSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetModel.swift; sourceTree = "<group>"; };
 		87DEF50426752AEF002CED8F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		87F47C19267A810F00F152FA /* SearchGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupView.swift; sourceTree = "<group>"; };
+		87F47C24267A817F00F152FA /* SearchGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupViewModel.swift; sourceTree = "<group>"; };
+		87F47C2A267AA7DF00F152FA /* GradientBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundModifier.swift; sourceTree = "<group>"; };
+		87F47C32267AAB6200F152FA /* SubjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectType.swift; sourceTree = "<group>"; };
+		87F47C3F267AAD8A00F152FA /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		87F47C44267AADA400F152FA /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +185,7 @@
 		870DF2152673D4C7000D57AA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				87F47C29267AA7CB00F152FA /* ViewModifiers */,
 				870DF2552673E314000D57AA /* Services */,
 				870DF24A2673DFD9000D57AA /* Views */,
 				870DF2412673DE6E000D57AA /* Extension */,
@@ -188,6 +201,8 @@
 				870DF2292673DD51000D57AA /* ScheduleSection.swift */,
 				870DF2172673D4DB000D57AA /* Subject.swift */,
 				87DEF4FF26752AB2002CED8F /* ActionSheetModel.swift */,
+				87F47C32267AAB6200F152FA /* SubjectType.swift */,
+				87F47C44267AADA400F152FA /* Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +210,7 @@
 		870DF21F2673D51F000D57AA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				87F47C18267A80FB00F152FA /* Search */,
 				87DEF4F626752A49002CED8F /* Settings */,
 				87DEF4ED267510DB002CED8F /* SubjectDetails */,
 				87DEF4DF2674F468002CED8F /* Filters */,
@@ -273,6 +289,24 @@
 				87DEF50426752AEF002CED8F /* SettingsViewModel.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		87F47C18267A80FB00F152FA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				87F47C19267A810F00F152FA /* SearchGroupView.swift */,
+				87F47C24267A817F00F152FA /* SearchGroupViewModel.swift */,
+				87F47C3F267AAD8A00F152FA /* GroupCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		87F47C29267AA7CB00F152FA /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				87F47C2A267AA7DF00F152FA /* GradientBackgroundModifier.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,16 +438,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87F47C2B267AA7DF00F152FA /* GradientBackgroundModifier.swift in Sources */,
 				87DEF4E12674F475002CED8F /* FiltersView.swift in Sources */,
 				870DF2572673E33F000D57AA /* ScheduleLocalStore.swift in Sources */,
 				870DF1EA2673D447000D57AA /* ContentView.swift in Sources */,
 				870DF22F2673DD79000D57AA /* ScheduleSectionView.swift in Sources */,
 				87DEF4C8267484C6002CED8F /* BottomTabView.swift in Sources */,
 				870DF2432673DE82000D57AA /* Date+FormatExtensions.swift in Sources */,
+				87F47C40267AAD8A00F152FA /* GroupCell.swift in Sources */,
 				870DF2222673D533000D57AA /* ScheduleView.swift in Sources */,
+				87F47C45267AADA400F152FA /* Group.swift in Sources */,
 				870DF25C2673E3B2000D57AA /* ScheduleGrouper.swift in Sources */,
 				870DF23A2673DDD0000D57AA /* Mocks.swift in Sources */,
+				87F47C25267A817F00F152FA /* SearchGroupViewModel.swift in Sources */,
 				87DEF4D52674ED71002CED8F /* SafeAreaBlurView.swift in Sources */,
+				87F47C1A267A810F00F152FA /* SearchGroupView.swift in Sources */,
 				870DF2342673DDA5000D57AA /* SubjectCell.swift in Sources */,
 				870DF2512673E2D7000D57AA /* ScheduleViewModel.swift in Sources */,
 				87DEF4E92674FA89002CED8F /* String+Extensions.swift in Sources */,
@@ -422,6 +461,7 @@
 				87DEF4EF267510EF002CED8F /* SubjectDetailsView.swift in Sources */,
 				870DF24C2673DFE8000D57AA /* SearchBar.swift in Sources */,
 				870DF1E82673D447000D57AA /* StudentUEK_SwiftUIApp.swift in Sources */,
+				87F47C33267AAB6200F152FA /* SubjectType.swift in Sources */,
 				870DF22A2673DD51000D57AA /* ScheduleSection.swift in Sources */,
 				87DEF4F826752A70002CED8F /* SettingsView.swift in Sources */,
 				87DEF50526752AEF002CED8F /* SettingsViewModel.swift in Sources */,

@@ -9,19 +9,20 @@ import Combine
 import SwiftUI
 
 final class ScheduleViewModel: ObservableObject {
-    @Published var sections: [ScheduleSection] = []
+    @Published var visibleSections: [ScheduleSection] = []
     @Published var filterButtonTitle: String = "Filtry"
     @Published var showFilters: Bool = false
+    @Published var showAddSubject = false
     @Published var query: String = "" {
         didSet {
             withAnimation { showFilters = false }
-            filter()
+            applyFilters()
         }
     }
     
     @Published var subjectTypes: Set<SubjectType> = Set(SubjectType.allCases) {
         didSet {
-            filter()
+            applyFilters()
             updateFiltersCount()
         }
     }
@@ -42,22 +43,29 @@ final class ScheduleViewModel: ObservableObject {
             .map(grouper.groupedSections)
             .sink { [weak self] in
                 self?.fullSchedule = $0
-                self?.sections = $0
+                self?.visibleSections = $0
             }
             .store(in: &cancellableBag)
     }
     
-    func filter() {
-        withAnimation {
-            sections = fullSchedule.compactMap {
-                var new = $0
-                if !query.isEmpty {
-                    new.subjects = $0.subjects.filter {
-                        $0.contains(searchText: query.lowercased()) && subjectTypes.contains($0.type!)
-                    }
+    func applySearch() {
+        
+    }
+    
+    func applyFilters() {
+        visibleSections = fullSchedule.compactMap {
+            var new = $0
+            if subjectTypes.count != SubjectType.allCases.count {
+                new.subjects = new.subjects.filter { subject in
+                    subjectTypes.contains(subject.type!)
                 }
-                return new.subjects.isEmpty ? nil : new
             }
+            if !query.isEmpty {
+                new.subjects = new.subjects.filter { subject in
+                    subject.contains(searchText: query.lowercased())
+                }
+            }
+            return new.subjects.isEmpty ? nil : new
         }
     }
     

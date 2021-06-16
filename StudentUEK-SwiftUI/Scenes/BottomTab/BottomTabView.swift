@@ -9,20 +9,29 @@ import SwiftUI
 import UIKit
 
 struct BottomTabView: View {
-    @StateObject var scheduleViewModel = ScheduleViewModel(scheduleLoader: ScheduleStoreMock(), grouper: ScheduleGrouper())
-    @StateObject var settingsViewModel = SettingsViewModel()
+    @StateObject private var scheduleViewModel = ScheduleViewModel(scheduleLoader: ScheduleStoreMock(), grouper: ScheduleGrouper())
+    @StateObject private var settingsViewModel = SettingsViewModel()
+    @StateObject private var seachGroupViewModel = SearchGroupViewModel()
+    @State private var selectedTab = 1
     
     var body: some View {
         ZStack {
-            TabView {
+            TabView(selection: $selectedTab) {
+                SearchGroupView(viewModel: seachGroupViewModel)
+                    .tabItem {
+                        Label("searchTitle", systemImage: "magnifyingglass")
+                    }
+                    .tag(0)
                 ScheduleView(viewModel: scheduleViewModel)
                     .tabItem {
                         Label("mainScheduleTabBarTitle", systemImage: "star.fill")
                     }
+                    .tag(1)
                 SettingsView(viewModel: settingsViewModel)
                     .tabItem {
                         Label("settingsTabBarTitle", systemImage: "gearshape.fill")
                     }
+                    .tag(2)
             }
             VStack {
                 Spacer()

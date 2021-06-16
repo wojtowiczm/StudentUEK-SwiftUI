@@ -7,32 +7,13 @@
 
 import Foundation
 
-enum SubjectType: String, CaseIterable, Identifiable {
-    var id: String { rawValue }
-    
-    case discourse
-    case excercise
-    case lecture
-    
-    var localized: String {
-        switch self {
-        case .lecture:
-            return "lectureFilter".localized
-        case .discourse:
-            return "discourseFilter".localized
-        case .excercise:
-            return "exercisesFilter".localized
-        }
-    }
-}
-
 struct Subject: Identifiable {
-    var id = UUID()
-    
     enum PlaceType {
         case online(url: URL)
         case offline(place: String)
     }
+    
+    var id = UUID()
     var dateString: String?
     var dayName: String?
     var startTime: Date?
@@ -52,12 +33,11 @@ struct Subject: Identifiable {
     var isHiddenByMarker = false
     
     var formattedPlace: PlaceType? {
-//        guard let place = place else { return nil }
-//        if let url = createLink(input: place) {
-//            return .online(url: url)
-//        }
-//        return .offline(place: place)
-        .online(url: URL(string: "https://stackoverflow.com/questions/52983673/uiapplication-shared-open-url-url-etc-doesnt-open-anything")!)
+        guard let place = place else { return nil }
+        if let url = createLink(input: place) {
+            return .online(url: url)
+        }
+        return .offline(place: place)
     }
     
     var timeString: String {
@@ -65,14 +45,14 @@ struct Subject: Identifiable {
     }
     
     func contains(searchText: String) -> Bool {
-        return ![name, type?.localized, teacher, dayName]
+        ![name, type?.localized, teacher, dayName]
             .compactMap { $0?.lowercased() }
-            .filter { $0.contains(searchText) }
+            .filter { $0.contains(searchText.lowercased()) }
             .isEmpty
     }
     
     private func createLink(input: String) -> URL? {
-        guard input.contains("http") else { return nil}
+        guard input.contains("http") else { return nil }
         let link = input.slice(from: "<a href=\"", to: "\">")
         return URL(string: link!)
     }
