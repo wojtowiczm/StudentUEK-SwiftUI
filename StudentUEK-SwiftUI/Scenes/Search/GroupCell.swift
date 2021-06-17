@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GroupCell: View {
+    @Environment(\.colorScheme) var colorScheme
     let group: Group
     
     var body: some View {
@@ -24,6 +25,7 @@ struct GroupCell: View {
                 .padding()
             }
         }
+        .accentColor(colorScheme == .dark ? .white : .black)
         .padding(.horizontal)
     }
 }
@@ -33,3 +35,4 @@ struct GroupCell_Previews: PreviewProvider {
         GroupCell(group: Mocks.group)
     }
 }
+
