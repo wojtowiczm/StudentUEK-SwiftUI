@@ -24,6 +24,9 @@
 		870DF2512673E2D7000D57AA /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DF2502673E2D7000D57AA /* ScheduleViewModel.swift */; };
 		870DF2572673E33F000D57AA /* ScheduleLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DF2562673E33F000D57AA /* ScheduleLocalStore.swift */; };
 		870DF25C2673E3B2000D57AA /* ScheduleGrouper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870DF25B2673E3B2000D57AA /* ScheduleGrouper.swift */; };
+		873B5A46267C09BB007C82C9 /* UEKGroupsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873B5A45267C09BB007C82C9 /* UEKGroupsParser.swift */; };
+		873B5A4B267C0A36007C82C9 /* UEKSubjectsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873B5A4A267C0A36007C82C9 /* UEKSubjectsParser.swift */; };
+		873B5A50267C104F007C82C9 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873B5A4F267C104F007C82C9 /* ApiService.swift */; };
 		87DEF4C8267484C6002CED8F /* BottomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4C7267484C6002CED8F /* BottomTabView.swift */; };
 		87DEF4D52674ED71002CED8F /* SafeAreaBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4D42674ED71002CED8F /* SafeAreaBlurView.swift */; };
 		87DEF4E12674F475002CED8F /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEF4E02674F475002CED8F /* FiltersView.swift */; };
@@ -81,6 +84,9 @@
 		870DF2502673E2D7000D57AA /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
 		870DF2562673E33F000D57AA /* ScheduleLocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleLocalStore.swift; sourceTree = "<group>"; };
 		870DF25B2673E3B2000D57AA /* ScheduleGrouper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGrouper.swift; sourceTree = "<group>"; };
+		873B5A45267C09BB007C82C9 /* UEKGroupsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UEKGroupsParser.swift; sourceTree = "<group>"; };
+		873B5A4A267C0A36007C82C9 /* UEKSubjectsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UEKSubjectsParser.swift; sourceTree = "<group>"; };
+		873B5A4F267C104F007C82C9 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		87DEF4C7267484C6002CED8F /* BottomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabView.swift; sourceTree = "<group>"; };
 		87DEF4D42674ED71002CED8F /* SafeAreaBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaBlurView.swift; sourceTree = "<group>"; };
 		87DEF4E02674F475002CED8F /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
@@ -254,6 +260,9 @@
 			children = (
 				870DF2562673E33F000D57AA /* ScheduleLocalStore.swift */,
 				870DF25B2673E3B2000D57AA /* ScheduleGrouper.swift */,
+				873B5A45267C09BB007C82C9 /* UEKGroupsParser.swift */,
+				873B5A4A267C0A36007C82C9 /* UEKSubjectsParser.swift */,
+				873B5A4F267C104F007C82C9 /* ApiService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -462,8 +471,11 @@
 				870DF24C2673DFE8000D57AA /* SearchBar.swift in Sources */,
 				870DF1E82673D447000D57AA /* StudentUEK_SwiftUIApp.swift in Sources */,
 				87F47C33267AAB6200F152FA /* SubjectType.swift in Sources */,
+				873B5A4B267C0A36007C82C9 /* UEKSubjectsParser.swift in Sources */,
 				870DF22A2673DD51000D57AA /* ScheduleSection.swift in Sources */,
+				873B5A50267C104F007C82C9 /* ApiService.swift in Sources */,
 				87DEF4F826752A70002CED8F /* SettingsView.swift in Sources */,
+				873B5A46267C09BB007C82C9 /* UEKGroupsParser.swift in Sources */,
 				87DEF50526752AEF002CED8F /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
