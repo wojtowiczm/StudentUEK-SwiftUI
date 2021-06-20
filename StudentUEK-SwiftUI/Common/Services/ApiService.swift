@@ -23,7 +23,7 @@ final class ApiService<Response> {
     }
     
     func loadData(for url: URL) -> AnyPublisher<Data, Error> {
-        URLSession.shared.dataTaskPublisher(for: url)
+        session.dataTaskPublisher(for: url)
             .map(\.data)
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
@@ -36,12 +36,13 @@ extension ApiService where Response == [Group] {
         let teachersUrl = URL(string: "http://planzajec.uek.krakow.pl/index.php?typ=N&xml")!
         let placesUrl = URL(string: "http://planzajec.uek.krakow.pl/index.php?typ=S&xml")!
 
-        return Publishers.Zip3(
+        return Publishers.CombineLatest3(
             loadGroups(for: groupsUrl),
             loadGroups(for: teachersUrl),
             loadGroups(for: placesUrl)
         )
         .map { groups, teachers, places in
+            print(groups.count, teachers.count, places.count)
             return groups + teachers + places
         }
         .eraseToAnyPublisher()
@@ -51,6 +52,16 @@ extension ApiService where Response == [Group] {
         loadData(for: url)
             .flatMap { data in
                 self.groupParser.parse(data: data)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+extension ApiService where Response == [Subject] {
+    func loadSchedule(for url: URL) -> AnyPublisher<[Subject], Error> {
+        loadData(for: url)
+            .flatMap { data in
+                self.subjectsParser.parse(data: data)
             }
             .eraseToAnyPublisher()
     }

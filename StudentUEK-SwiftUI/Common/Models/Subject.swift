@@ -23,7 +23,7 @@ struct Subject: Identifiable {
     var name: String?
     var teacher: String?
     var place: String?
-    var type: SubjectType?
+    var typeString: String?
     var note: String?
     var moodleLink: String?
     var sourceType: String?
@@ -40,12 +40,16 @@ struct Subject: Identifiable {
         return .offline(place: place)
     }
     
+    var type: SubjectType? {
+        typeString.flatMap(SubjectType.init(string:))
+    }
+    
     var timeString: String {
         "\(startTimeString ?? "")-\(endTimeString ?? "")"
     }
     
     func contains(searchText: String) -> Bool {
-        ![name, type?.localized, teacher, dayName]
+        ![name, typeString?.localized, teacher, dayName]
             .compactMap { $0?.lowercased() }
             .filter { $0.contains(searchText.lowercased()) }
             .isEmpty

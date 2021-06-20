@@ -12,6 +12,19 @@ enum SubjectType: String, CaseIterable {
     case excercise
     case lecture
     
+    init?(string: String) {
+        let caseInsensitiveStr = string.lowercased()
+        if caseInsensitiveStr.contains("wykład") {
+            self = .discourse
+        } else if caseInsensitiveStr.contains("ćwiczenia") {
+            self = .excercise
+        } else if caseInsensitiveStr.contains("lektorat"){
+            self = .lecture
+        } else {
+            return nil
+        }
+    }
+    
     var localized: String {
         switch self {
         case .lecture:

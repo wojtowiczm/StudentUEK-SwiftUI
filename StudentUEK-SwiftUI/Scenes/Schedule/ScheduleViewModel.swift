@@ -15,14 +15,16 @@ final class ScheduleViewModel: ObservableObject {
     @Published var showAddSubject = false
     @Published var query: String = "" {
         didSet {
-            withAnimation { showFilters = false }
-            applyFilters()
+            withAnimation {
+                showFilters = false
+                applyFilters()
+            }
         }
     }
     
     @Published var subjectTypes: Set<SubjectType> = Set(SubjectType.allCases) {
         didSet {
-            applyFilters()
+            withAnimation { applyFilters() }
             updateFiltersCount()
         }
     }
@@ -39,9 +41,12 @@ final class ScheduleViewModel: ObservableObject {
     }
     
     func loadData() {
-        scheduleLoader.fetchStoredSchedule()
+        ApiService<[Subject]>()
+            .loadSchedule(for: URL(string: "http://planzajec.uek.krakow.pl/index.php?typ=G&id=210171&okres=3&xml")!)
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
             .map(grouper.groupedSections)
-            .sink { [weak self] in
+            .sink(receiveCompletion: { print($0) }) { [weak self] in
                 self?.fullSchedule = $0
                 self?.visibleSections = $0
             }
