@@ -27,11 +27,10 @@ final class UEKSubjectsService: NSObject, SubjectsParsingLogic {
         case schedule = "plan-zajec"
         case moodle
     }
-    var subjects: [Subject] = []
-    var currentContent = ""
-    var sourceType: String?
-    var teacherMoodleLink: String?
-    var response: ((Result<[Subject], Error>) -> Void)?
+    private var currentSubject: Subject?
+    private var subjects: [Subject] = []
+    private var currentContent = ""
+    private var response: ((Result<[Subject], Error>) -> Void)?
     
     func parse(data: Data) -> AnyPublisher<[Subject], Error> {
         Future { [weak self] promise in
@@ -57,15 +56,15 @@ extension UEKSubjectsService: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == Keys.schedule.rawValue {
             if let source = attributeDict[Keys.type.rawValue] {
-                sourceType = source
+                currentSubject?.sourceType = source
             }
             // moodle id for teachers
-            if let id = attributeDict["idcel"]?.dropFirst() {
-                teacherMoodleLink = "https://e-uczelnia.uek.krakow.pl/course/view.php?id=\(id)"
+            if let id = attributeDict["idcel"]?.dropFirst(), currentSubject?.moodleLink == nil {
+                currentSubject?.moodleLink = "https://e-uczelnia.uek.krakow.pl/course/view.php?id=\(id)"
             }
         }
         if elementName == Keys.teacher.rawValue, let id = attributeDict[Keys.moodle.rawValue]?.dropFirst() {
-            subjects[subjects.count - 1].moodleLink = "https://e-uczelnia.uek.krakow.pl/course/view.php?id=\(id)"
+            currentSubject?.moodleLink = "https://e-uczelnia.uek.krakow.pl/course/view.php?id=\(id)"
         }
     }
     
@@ -75,30 +74,31 @@ extension UEKSubjectsService: XMLParserDelegate {
         }
         switch key {
         case .date:
-            subjects.append(Subject())
-            subjects[subjects.count - 1].dateString = currentContent
+            if let subject = currentSubject {
+                subjects.append(subject)
+            }
+            currentSubject = Subject()
+            currentSubject?.dateString = currentContent
         case .startTime:
-            subjects[subjects.count - 1].startTimeString = currentContent
+            currentSubject?.startTimeString = currentContent
         case .endTime:
             if let endTimeString = currentContent.split(separator: " ").first {
-                subjects[subjects.count - 1].endTimeString = String(endTimeString)
+                currentSubject?.endTimeString = String(endTimeString)
             } else {
-                subjects[subjects.count - 1].endTimeString = currentContent
+                currentSubject?.endTimeString = currentContent
             }
-            
         case .teacher:
-            subjects[subjects.count - 1].teacher = currentContent
+            currentSubject?.teacher = currentContent
         case .group:
-            subjects[subjects.count - 1].teacher = currentContent
+            currentSubject?.teacher = currentContent
         case .place:
-            subjects[subjects.count - 1].place = currentContent
+            currentSubject?.place = currentContent
         case .subject:
-            subjects[subjects.count - 1].name = currentContent
+            currentSubject?.name = currentContent
         case .type:
-            subjects[subjects.count - 1].type = SubjectType(rawValue: currentContent)
+            currentSubject?.typeString = currentContent
         case .note:
-            subjects[subjects.count - 1].note = currentContent
-            break
+            currentSubject?.note = currentContent
         default:
             print("UNKNOWN KEY: \(elementName)")
         }
@@ -106,8 +106,6 @@ extension UEKSubjectsService: XMLParserDelegate {
     }
     
     func parserDidStartDocument(_ parser: XMLParser) {
-        teacherMoodleLink = nil
-        sourceType = nil
         subjects = []
     }
     
@@ -117,11 +115,6 @@ extension UEKSubjectsService: XMLParserDelegate {
             if let date = subject.dateString {
                 subject = createDatesFor(subject: $0, date: date)
             }
-            if let moodleLink = teacherMoodleLink,
-                subject.moodleLink == nil {
-                subject.moodleLink = moodleLink
-            }
-            subject.sourceType = sourceType
             return subject
         }
         response?(.success(subjects))
@@ -131,8 +124,7 @@ extension UEKSubjectsService: XMLParserDelegate {
         currentContent += string
     }
     
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error)
-    {
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         print(parseError.localizedDescription)
     }
     
